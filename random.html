@@ -1,0 +1,88 @@
+<html>
+	<header>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+
+		<style>
+			body{
+				display:relative;
+				min-height: 100%;
+			}
+			.random-container{
+				width: 400px;
+				height: 400px;
+				border-radius: 3%;
+				margin:auto;
+				background-color: #eee;
+			}
+			.random-number{
+				font-size: 160px;
+				position:relative;
+				margin: auto;
+				top: 75px;
+				width: 100%;
+				color:#666;
+				text-align:center;
+			}
+			.btn-danger {
+				display:block;
+				width: 400px;
+				font-size: 30px;
+				margin:auto;
+			}
+			form{
+				display:block;
+				margin:auto;
+				margin-bottom: 3px;
+				max-width:400px;
+			}
+
+		</style>
+	</header>
+	<body>
+
+		<div class="container">
+			<form class="form">
+				<label class="sr-only" for="inlineFormInput">Start:</label>
+			  	<input type="number" class="form-control mb-2 mr-sm-2 mb-sm-0" id="startInput" placeholder="Start"/>   
+			  	<label class="sr-only" for="inlineFormInput">End:</label>
+			  	<input type="number" class="form-control mb-2 mr-sm-2 mb-sm-0" id="endInput" placeholder="End"/>
+			  </form>
+
+			<div class="random-container">
+				<div class="random-number" id="rnd">100</div>
+
+			</div>
+			<button class="btn btn-danger" onclick="startGenerateRandom()">Create Random</button>
+		</div>
+			<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+			<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+			<script>
+				var counter = 0;
+				var start = 1;
+				var end = 10;
+
+				function startGenerateRandom(){
+					start = parseInt($('#startInput').val());
+					end = parseInt($('#endInput').val());
+					setTimeout(generateRandom,100);	
+				}
+
+				function generateRandom(){
+					var diff= (end-start);
+					var rnd = Math.round(Math.random() * diff) + start;
+
+					$('#rnd').text(rnd);
+					if( counter < 20 ){
+						counter ++;
+						setTimeout(generateRandom,100);
+						
+					}else {
+						counter = 0;
+					}
+					
+				}
+		</script>
+	</body>
+
+</html>
