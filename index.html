@@ -40,14 +40,29 @@
 				margin-bottom: 3px;
 				max-width:300px;
 			}
+			.container{
+				text-align:center;
+			}
+			.container .display-3{
+				margin-bottom: 5%;
+				margin-top: 5%;
+			}
+			.alert {
+				display:block;
+				margin:auto;
+				max-width: 300px;
+				margin-top: 3px;
+			}
 
 		</style>
 	</header>
 	<body>
 
 		<div class="container">
-			<form class="form">
-				<label class="sr-only" for="inlineFormInput">Start:</label>
+			<div class="display-3">Random Generator</div>
+			<form class="form" style="text-align:left">
+
+				<label class="" for="inlineFormInput">Generate number between:</label>
 			  	<input type="number" class="form-control mb-2 mr-sm-2 mb-sm-0" id="startInput" placeholder="Start"/>   
 			  	<label class="sr-only" for="inlineFormInput">End:</label>
 			  	<input type="number" class="form-control mb-2 mr-sm-2 mb-sm-0" id="endInput" placeholder="End"/>
@@ -58,31 +73,49 @@
 
 			</div>
 			<button class="btn btn-danger" onclick="startGenerateRandom()">Generate Random</button>
+			<div class="alert alert-danger" style="display:none" id="error-msg">
+			  <strong>Error!</strong> You have to add start and end parameters.
+			</div>
 		</div>
-			<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+			<script   src="https://code.jquery.com/jquery-3.2.1.min.js"   integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="   crossorigin="anonymous"></script>  
+
+			<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" integrity="sha256-eGE6blurk5sHj+rmkfsGYeKyZx3M4bG+ZlFyA7Kns7E=" crossorigin="anonymous"></script>
 			<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
 			<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
 			<script>
 				var counter = 0;
-				var start = 1;
-				var end = 10;
 
 				function startGenerateRandom(){
-					start = parseInt($('#startInput').val());
-					end = parseInt($('#endInput').val());
-					setTimeout(generateRandom,100);	
+					var start = parseInt($('#startInput').val());
+					var end = parseInt($('#endInput').val());
+
+					if(!start || !end){
+						$('#error-msg').show();
+						$('#error-msg').effect("shake");
+						return;
+					}else {
+						$('#error-msg').hide();
+					}
+					setTimeout(function(){
+						generateRandom(start, end);
+					},100);	
 				}
 
-				function generateRandom(){
+				function generateRandom(start, end){
 					var diff= (end-start);
 					var rnd = Math.round(Math.random() * diff) + start;
 
 					$('#rnd').text(rnd);
+
 					if( counter < 20 ){
 						counter ++;
-						setTimeout(generateRandom,100);
+
+						setTimeout(function(){
+							generateRandom(start,end);
+						},100);
 						
 					}else {
+
 						counter = 0;
 					}
 					

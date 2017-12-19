@@ -1,0 +1,73 @@
+<html>
+	<header>
+	 	<!-- Required meta tags -->
+	    <meta charset="utf-8">
+    	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+		<style>
+			body{
+				background: #fff;
+			}
+			.card{
+				
+				margin-top: 10px;
+				text-align:center;
+				background:#ccc;
+				color:#efefef;
+				
+			}
+			.free {
+				background-color:#0c78ba;
+				color:#eeeeff;
+			}
+			.display-3{
+				padding-top:10px;
+			}
+
+		</style>
+	</header>
+	<body>
+
+		<div class="container">
+				<div class="row" id="tickets">
+				</div>
+		</div>
+			<script   src="https://code.jquery.com/jquery-3.2.1.min.js"   integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="   crossorigin="anonymous"></script>  
+
+			
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+			<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+			<script>
+				function addCard(number, owner){
+					$cardContainer = $('<div class="col-sm-6  col-md-4 col-lg-3" />').appendTo('#tickets');
+					$card = $('<div class="card " />').attr({id:number}).appendTo($cardContainer);
+					$('<div class="display-3" />').text(number).appendTo($card);
+
+					$block = $('<div class="card-block"/>').appendTo($card);
+					if(!owner){
+						$card.addClass('free');
+						owner = "<available>";
+					}
+					$('<h4 class="card-title" />').text(owner).appendTo($block);
+				
+
+				}
+				function updateCard(number, owner){
+					$('#'+number).find('.card-title').text(owner);
+					$('#'+number).removeClass('free');
+				}
+
+				$(document).ready(function(){
+					var i = 1;
+
+					while(i < 101){
+						addCard(i);
+						i++;
+					}
+					updateCard(22, "Ida Marie")
+				})
+			</script>
+	</body>
+
+</html>
